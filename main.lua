@@ -1,11 +1,20 @@
+json = require("json")
 
 function love.load(arg)
+
+    file = io.open("workout.json", "rb")
+    jsonString = file:read("*a")
+    file:close()
+    workouts =  json.decode(jsonString).workout
+    for k,v in pairs(workouts) do
+        print(v.day)
+    end
 
     x0 = 0
     y0 = 0
     rw0 = 200
     rh0 = 400
-    daysOfWeek = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"}
+    daysOfWeek = {"Monday",  "Friday", "Saturday", "Sunday"}
     love.window.setMode(1460,400) 
     love.window.setTitle("Workout Schedule")
 end
@@ -16,13 +25,15 @@ end
 
 function love.draw()
 
-
-    for idx, day in ipairs(daysOfWeek) do
-        drawWorkoutBox(day, nil, x0 + (rw0 + 10) * (idx -1), y0, rw0, rh0)
+    local idx = 0
+    for k, v in pairs(workouts) do
+        drawWorkoutBox(v.day, v.exercises, x0 + (rw0 + 10) * (idx), y0, rw0, rh0)
+        idx = idx + 1
     end
+
 end
 
-function drawWorkoutBox( dayOfWeek, workout, x, y, width, height )
+function drawWorkoutBox( dayOfWeek, exercises, x, y, width, height )
     local rw1 = width  - 2
     local rh1 = height - 2
     local offsetw = (width - rw1)/2.0
@@ -40,17 +51,62 @@ function drawWorkoutBox( dayOfWeek, workout, x, y, width, height )
     love.graphics.rectangle("fill",x,y+curve, width, 1)
     love.graphics.print(dayOfWeek, x + (width / 2.0) - (gw / 2.0) , y + (curve / 2.0) - (gh/2.0))
 
-    drawWorkout()
+    drawExercises(exercises, x+10, y + curve)
 end
 
-function drawWorkout( workout )
+function drawExercises(exercises, x, y)
+    local font = love.graphics.getFont()
+    local gh = font:getHeight()
+    local yOffset = 0
+
+    for k,v in pairs(exercises) do
+        if v.type == "SetsReps" then
+            drawExerciseSetsReps(v.name, v.sets, v.reps, x, y + yOffset )
+        elseif v.type == "Reps" then
+            drawExerciseReps(v.name, v.reps, x, y + yOffset)
+        elseif v.type == "BigSet" then
+            drawExerciseBigSet(v.exercises, v.sets, x, y + yOffset)
+        end
+        yOffset = yOffset + gh
+    end
 end
 
-function drawExerciseSetsReps( exercise, numSets, numReps )
+function drawExerciseSetsReps(exercise, numSets, numReps, x, y)
+    love.graphics.print(exercise .. ": " .. numSets .. "x" .. numReps, x, y)
 end
 
-function drawExerciseReps( exercise, numReps )
+function drawExerciseReps(exercise, numReps, x, y)
+    love.graphics.print(exercise .. ": " .. numReps, x, y)
 end
 
-function drawExerciseBigSet( exercises, numReps)
+function drawExerciseBigSet(exercises, numSets, x, y)
+    local font = love.graphics.getFont()
+    local gh = font:getHeight()
+    local yOffset = 0
+    local largestWidth = 0
+
+    for k,v in pairs(exercises) do
+        local strLen = 0
+        exerciseStr = v.reps .. " " .. v.name
+        love.graphics.print(exerciseStr, x, y + yOffset)
+        strLen = font:getWidth(exerciseStr)
+
+        if strLen > largestWidth then
+            largestWidth = strLen
+        end
+
+        yOffset = yOffset + gh
+    end
+
+
+    -- Draw line from first exercise
+    love.graphics.rectangle("fill", x + largestWidth    , y + gh /2, 10, 1)
+    -- Draw the line from the last exercise
+    love.graphics.rectangle("fill", x + largestWidth     , y + gh * #exercises - gh/2, 11, 1)
+    -- Draw the line connecting the two.
+    love.graphics.rectangle("fill", x + largestWidth + 10   , y + gh /2, 1, gh * #exercises - gh )
+    -- Draw the midpoint line
+    love.graphics.rectangle("fill", x + largestWidth + 10, y  + (gh * #exercises)/2.0, 10, 1)
+    -- Draw the numSets 
+    love.graphics.print(numSets, x + largestWidth + 20, y + (gh * #exercises)/2.0 - gh /2.0)
 end

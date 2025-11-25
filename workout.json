@@ -1,0 +1,82 @@
+{
+    "workout":
+    [
+        {
+            "day": "Monday",
+            "exercises":
+            [
+                {
+                    "type" : "SetsReps",
+                    "name" : "Bench",
+                    "sets" : "3",
+                    "reps" : "8"
+                },
+                {
+                    "type" : "SetsReps",
+                    "name" : "Flat flies",
+                    "sets" : "3",
+                    "reps" : "8"
+                },
+                {
+                    "type" : "SetsReps",
+                    "name" : "Push ups",
+                    "sets" : "3",
+                    "reps" : "8"
+                },
+                {
+                    "type" : "Reps",
+                    "name" : "Push Ups",
+                    "reps" : 50
+                },
+                {
+                    "type" : "Reps",
+                    "name" : "Run",
+                    "reps" : "1 Mile" 
+                },
+                {
+                    "type" : "BigSet",
+                    "sets": 3,
+                    "exercises":
+                    [
+                        {
+                            "name": "Push Ups",
+                            "reps": 10
+                        },
+                        {
+                            "name": "Air Squats",
+                            "reps": 10
+                        },
+                        {
+                            "name": "Burpees",
+                            "reps": 25
+                        }
+                    ]
+                }
+            ] 
+        },
+        {
+            "day": "Tuesday",
+            "exercises":
+            [
+                {
+                    "type" : "SetsReps",
+                    "name" : "Squat",
+                    "sets" : "3",
+                    "reps" : "8"
+                },
+                {
+                    "type" : "SetsReps",
+                    "name" : "Deadlift",
+                    "sets" : "3",
+                    "reps" : "8"
+                },
+                {
+                    "type" : "SetsReps",
+                    "name" : "Power Cleans",
+                    "sets" : "3",
+                    "reps" : "8"
+                }
+            ] 
+        }
+    ]
+}
