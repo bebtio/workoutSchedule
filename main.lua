@@ -1,39 +1,47 @@
 json = require("json")
 
 function love.load(arg)
-
     file = io.open("workout.json", "rb")
     jsonString = file:read("*a")
     file:close()
     workouts =  json.decode(jsonString)
 
+    boxSpacing = 10
     x0 = 0
     y0 = 0
-    rw0, rh0 = getLongestExerciseString(workouts, love.graphics.getFont())
+    numWorkouts, rw0, rh0 = getLongestExerciseString(workouts, love.graphics.getFont())
     rw0 = rw0 * 1.3
     rh0 = rh0 * 1.3
     daysOfWeek = {"Monday",  "Friday", "Saturday", "Sunday"}
-    love.window.setMode(1460,400) 
+    love.window.setMode(numWorkouts*(boxSpacing+rw0), rh0 + boxSpacing) 
     love.window.setTitle("Workout Schedule")
 end
 
 function love.update(dt)
 
+    if love.keyboard.isDown('s') then
+        print("SCREEN SHOT " .. love.filesystem.getSaveDirectory() )
+        love.graphics.captureScreenshot(function(image)
+            local path = love.filesystem.getWorkingDirectory()
+            local file = io.open(path .. "/workout.png", "wb")
+            file:write(image:encode("png"):getString())
+            file:close()
+        end)
+
+    end
+    
 end
 
 function love.draw()
 
     local idx = 0
     for k, v in pairs(workouts.workout) do
-        drawWorkoutBox(v.day, v.exercises, x0 + (rw0 + 10) * (idx), y0, rw0, rh0)
+        local xPos = x0 + (boxSpacing / 2.0) + (rw0 + boxSpacing) * idx
+        local yPos = y0 + (boxSpacing / 2.0)
+        drawWorkoutBox(v.day, v.exercises, xPos, yPos, rw0, rh0)
         idx = idx + 1
     end
 
-    if love.keyboard.isDown('s') then
-        path = love.filesystem.getWorkingDirectory()
-        love.graphics.captureScreenshot(path .. "/workout.png")
-        print("SCREEN SHOT")
-    end
 end
 
 
@@ -47,7 +55,6 @@ function drawWorkoutBox( dayOfWeek, exercises, x, y, width, height )
     local gw = font:getWidth(dayOfWeek)
     local gh = font:getHeight(dayOfWeek)
 
-    love.graphics.setColor(1,1,1)
     love.graphics.rectangle("fill",x,y, width, height, curve, curve)
     love.graphics.setColor(0,0,0)
     love.graphics.rectangle("fill",x+offsetw,y+offseth,rw1,rh1, curve, curve)
@@ -127,11 +134,12 @@ end
 function getLongestExerciseString(workoutData, font)
     local maxWidth = 0
     local maxHeight = 0
-    local longestString = ""
+    local numWorkouts = 0
 
     for _, day in ipairs(workoutData.workout) do
         local currentHeight = 0
         local currentWidth = 0
+        numWorkouts = numWorkouts+1
         for _, exercise in ipairs(day.exercises) do
 
             -- This SetReps and Text are likely to be the longest strings so used those
@@ -169,5 +177,5 @@ function getLongestExerciseString(workoutData, font)
         end
     end
 
-    return maxWidth, maxHeight * font:getHeight()
+    return numWorkouts, maxWidth, maxHeight * font:getHeight()
 end
