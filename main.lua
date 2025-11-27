@@ -5,15 +5,13 @@ function love.load(arg)
     file = io.open("workout.json", "rb")
     jsonString = file:read("*a")
     file:close()
-    workouts =  json.decode(jsonString).workout
-    for k,v in pairs(workouts) do
-        print(v.day)
-    end
+    workouts =  json.decode(jsonString)
 
     x0 = 0
     y0 = 0
-    rw0 = 200
-    rh0 = 400
+    rw0, rh0 = getLongestExerciseString(workouts, love.graphics.getFont())
+    rw0 = rw0 * 1.3
+    rh0 = rh0 * 1.3
     daysOfWeek = {"Monday",  "Friday", "Saturday", "Sunday"}
     love.window.setMode(1460,400) 
     love.window.setTitle("Workout Schedule")
@@ -26,12 +24,18 @@ end
 function love.draw()
 
     local idx = 0
-    for k, v in pairs(workouts) do
+    for k, v in pairs(workouts.workout) do
         drawWorkoutBox(v.day, v.exercises, x0 + (rw0 + 10) * (idx), y0, rw0, rh0)
         idx = idx + 1
     end
 
+    if love.keyboard.isDown('s') then
+        path = love.filesystem.getWorkingDirectory()
+        love.graphics.captureScreenshot(path .. "/workout.png")
+        print("SCREEN SHOT")
+    end
 end
+
 
 function drawWorkoutBox( dayOfWeek, exercises, x, y, width, height )
     local rw1 = width  - 2
@@ -51,7 +55,7 @@ function drawWorkoutBox( dayOfWeek, exercises, x, y, width, height )
     love.graphics.rectangle("fill",x,y+curve, width, 1)
     love.graphics.print(dayOfWeek, x + (width / 2.0) - (gw / 2.0) , y + (curve / 2.0) - (gh/2.0))
 
-    drawExercises(exercises, x+10, y + curve)
+    width = drawExercises(exercises, x+10, y + curve)
 end
 
 function drawExercises(exercises, x, y)
@@ -66,6 +70,15 @@ function drawExercises(exercises, x, y)
             drawExerciseReps(v.name, v.reps, x, y + yOffset)
         elseif v.type == "BigSet" then
             drawExerciseBigSet(v.exercises, v.sets, x, y + yOffset)
+        elseif v.type == "Spacebreak" then
+            -- Does nothing, just applies the yOffset.
+        elseif v.type == "Linebreak" then
+            love.graphics.rectangle("fill", x, y + yOffset - gh / 2.0, 10, 1)
+        elseif v.type == "Text" then
+            love.graphics.print(v.text, x, y + yOffset)
+        else
+            -- If the next thing selected wasn't anything valid, remove a yOffset so we don't have blank space.
+            yOffset = yOffset - gh
         end
         yOffset = yOffset + gh
     end
@@ -109,4 +122,52 @@ function drawExerciseBigSet(exercises, numSets, x, y)
     love.graphics.rectangle("fill", x + largestWidth + 10, y  + (gh * #exercises)/2.0, 10, 1)
     -- Draw the numSets 
     love.graphics.print(numSets, x + largestWidth + 20, y + (gh * #exercises)/2.0 - gh /2.0)
+end
+
+function getLongestExerciseString(workoutData, font)
+    local maxWidth = 0
+    local maxHeight = 0
+    local longestString = ""
+
+    for _, day in ipairs(workoutData.workout) do
+        local currentHeight = 0
+        local currentWidth = 0
+        for _, exercise in ipairs(day.exercises) do
+
+            -- This SetReps and Text are likely to be the longest strings so used those
+            -- to compute the width.
+            if exercise.type == "SetsReps" then
+                local sets = tostring(exercise.sets)
+                local reps = tostring(exercise.reps)
+                local str = exercise.name .. ": " .. sets .. " x " .. reps
+
+                local currentWidth = font:getWidth(str)
+
+                if currentWidth > maxWidth then
+                    maxWidth = currentWidth 
+                end
+
+                currentHeight = currentHeight + 1
+            elseif exercise.type == "Text" then
+                currentWdith = font:getWidth(exercise.text)
+                if currentWidth > maxWidth then
+                    maxWidth = currentWidth 
+                end
+
+                currentHeight = currentHeight + 1
+            elseif exercise.type == "BigSet" then
+                -- Big set exercises will always be stacked so measure how
+                -- many there are and add them to the running height.
+                currentHeight = currentHeight + #exercise.exercises
+            else
+                currentHeight = currentHeight + 1
+            end  
+
+            if currentHeight > maxHeight then
+                maxHeight = currentHeight
+            end
+        end
+    end
+
+    return maxWidth, maxHeight * font:getHeight()
 end
