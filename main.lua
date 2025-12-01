@@ -1,5 +1,6 @@
 json = require("json")
 require("workout")
+require("debounce")
 
 function love.load(arg)
 
@@ -21,7 +22,7 @@ function love.load(arg)
         workouts =  json.decode(jsonString)
     end
 
-
+    drawIndex = 1
     boxSpacing = 10
     curve = 30
     x0 = 0
@@ -36,28 +37,50 @@ end
 
 function love.update(dt)
 
-    if love.keyboard.isDown('s') then
-        love.graphics.captureScreenshot(function(image)
-            local path = love.filesystem.getWorkingDirectory()
-            local file = io.open(path .. "/workout.png", "wb")
-            file:write(image:encode("png"):getString())
-            file:close()
-        end)
+   
+    if debounce(dt) then
+        if love.keyboard.isDown('s') then
+            love.graphics.captureScreenshot(function(image)
+                local path = love.filesystem.getWorkingDirectory()
+                local file = io.open(path .. "/workout.png", "wb")
+                file:write(image:encode("png"):getString())
+                file:close()
+            end)
 
-        love.event.quit()
+            love.event.quit()
+        end
+
+        if love.keyboard.isDown('right') then
+            drawIndex = drawIndex + 1
+            if drawIndex > #workouts.workout then
+                drawIndex = 1
+            end
+        end
+
+        if love.keyboard.isDown('left') then
+            drawIndex = drawIndex - 1
+            if drawIndex <= 0 then
+                drawIndex = #workouts.workout
+            end
+        end
     end
-    
+
 end
 
 function love.draw()
 
-    local idx = 0
-    for k, v in pairs(workouts.workout) do
-        local xPos = x0 + (boxSpacing / 2.0) + (rw0 + boxSpacing) * idx
-        local yPos = y0 + (boxSpacing / 2.0)
-        drawWorkoutBox(v.day, v.exercises, xPos, yPos, rw0, rh0)
-        idx = idx + 1
-    end
+    --local idx = 0
+    --for k, v in pairs(workouts.workout) do
+        --local xPos = x0 + (boxSpacing / 2.0) + (rw0 + boxSpacing) * idx
+        --local yPos = y0 + (boxSpacing / 2.0)
+        --drawWorkoutBox(v.day, v.exercises, xPos, yPos, rw0, rh0)
+        --idx = idx + 1
+    --end
+
+    local xPos = x0 + (boxSpacing / 2.0) + (rw0 + boxSpacing)
+    local yPos = y0 + (boxSpacing / 2.0)
+    print(drawIndex)
+    drawWorkoutBox(workouts.workout[drawIndex].day, workouts.workout[drawIndex].exercises, xPos, yPos, rw0, rh0)
 
 end
 
