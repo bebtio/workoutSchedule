@@ -1,6 +1,7 @@
 json = require("json")
 require("workout")
 require("debounce")
+require("screenshot")
 
 function love.load(arg)
 
@@ -40,14 +41,7 @@ function love.update(dt)
    
     if debounce(dt) then
         if love.keyboard.isDown('s') then
-            love.graphics.captureScreenshot(function(image)
-                local path = love.filesystem.getWorkingDirectory()
-                local file = io.open(path .. "/workout.png", "wb")
-                file:write(image:encode("png"):getString())
-                file:close()
-            end)
-
-            love.event.quit()
+            takeScreenShot()
         end
 
         if love.keyboard.isDown('right') then

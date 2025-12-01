@@ -2,36 +2,54 @@
     "workout":
     [
         {
-            "day": "Monday",
+            "day": "Day 1 Chest",
             "exercises":
             [
                 {
                     "type" : "SetsReps",
-                    "name" : "Bench",
+                    "name" : "Dumbell Bench",
                     "sets" : "3",
                     "reps" : "8"
                 },
                 {
                     "type" : "SetsReps",
-                    "name" : "Flat flies",
+                    "name" : "Dumbell flies",
                     "sets" : "3",
                     "reps" : "8"
                 },
                 {
                     "type" : "SetsReps",
-                    "name" : "Push ups",
+                    "name" : "One Armed Rows",
                     "sets" : "3",
                     "reps" : "8"
                 },
                 {
-                    "type" : "Reps",
-                    "name" : "Push Ups",
-                    "reps" : 50
+                    "type": "Spacebreak"
                 },
                 {
-                    "type" : "Reps",
-                    "name" : "Run",
-                    "reps" : "1 Mile" 
+                    "type" : "SetsReps",
+                    "name" : "Skull Crushers",
+                    "sets" : "3",
+                    "reps" : "8"
+                },
+                {
+                    "type" : "SetsReps",
+                    "name" : "Overhead Tricep Extensions",
+                    "sets" : "3",
+                    "reps" : "8"
+                },
+                {
+                    "type" : "SetsReps",
+                    "name" : "Kickbacks",
+                    "sets" : "3",
+                    "reps" : "8"
+                },
+                {
+                    "type" : "Text",
+                    "text" : "* Do 5 pushups between every set."
+                },
+                {
+                    "type" : "Spacebreak"
                 },
                 {
                     "type" : "BigSet",
@@ -55,12 +73,12 @@
             ] 
         },
         {
-            "day": "Tuesday",
+            "day": "Day 2 Legs",
             "exercises":
             [
                 {
                     "type" : "SetsReps",
-                    "name" : "Squat",
+                    "name" : "Back Squat",
                     "sets" : "3",
                     "reps" : "8"
                 },
@@ -72,11 +90,150 @@
                 },
                 {
                     "type" : "SetsReps",
-                    "name" : "Power Cleans",
+                    "name" : "Stiff Leg Deadlift",
                     "sets" : "3",
                     "reps" : "8"
+                },
+                {
+                    "type" : "SetsReps",
+                    "name" : "Deadlift",
+                    "sets" : "3",
+                    "reps" : "8"
+                },
+                {
+                    "type" : "Spacebreak"
+                },
+                {
+                    "type" : "SetsReps",
+                    "name" : "Calf Rase",
+                    "sets" : "3",
+                    "reps" : "8"
+                },
+                {
+                    "type" : "SetsReps",
+                    "name" : "Walking Lunge",
+                    "sets" : 3,
+                    "reps" : 8
+
+                },
+                {
+                    "type" : "SetsReps",
+                    "name" : "Dumbell Shoulder Press",
+                    "sets" : 3,
+                    "reps" : 8
+                },
+                {
+                    "type" : "Spacebreak"
+                },
+                {
+                    "type" : "Text",
+                    "text" : "* Air Squats on every set"
                 }
             ] 
+        },
+        {
+            "day" : "Day 3 Back",
+            "exercises" : 
+            [
+                {
+                    "type" : "SetsReps",
+                    "name" : "One Arm Rows",
+                    "sets" : 3,
+                    "reps" : 8
+                },
+                {
+                    "type" : "SetsReps",
+                    "name" : "Dumbell Rows",
+                    "sets" : 3,
+                    "reps" : 8
+                },
+                {
+                    "type" : "SetsReps",
+                    "name" : "Incline Bench",
+                    "sets" : 3,
+                    "reps" : 8
+                },
+                {
+                    "type" : "Spacebreak"
+                },
+                {
+                    "type" : "SetsReps",
+                    "name" : "EZ Bar Curls",
+                    "sets" : 3,
+                    "reps" : 8
+                },
+                {
+                    "type" : "SetsReps",
+                    "name" : "Lying Curls",
+                    "sets" : 3,
+                    "reps" : 8
+                },
+                {
+                    "type" : "SetsReps",
+                    "name" : "Dumbell Curls",
+                    "sets" : 3,
+                    "reps" : 8
+                },
+                {
+                    "type" : "Spacebreak" 
+                },
+                {
+                    "type" : "Text",
+                    "text" : "* 5 Pull ups between each set"
+                }
+            ]
+        },
+        {
+            "day" : "Day 4 Shoulders",
+            "exercises" : 
+            [
+                {
+                    "type" : "SetsReps",
+                    "name" : "Dumbell Shoulder Press",
+                    "sets" : 3,
+                    "reps" : 8
+                },
+                {
+                    "type" : "SetsReps",
+                    "name" : "Side Raises",
+                    "sets" : 3,
+                    "reps" : 8
+                },
+                {
+                    "type" : "SetsReps",
+                    "name" : "Hang Clean",
+                    "sets" : 3,
+                    "reps" : 8
+                },
+                {
+                    "type" : "Spacebreak"
+                },
+                {
+                    "type" : "SetsReps",
+                    "name" : "One Arm Dumbell Cleans",
+                    "sets" : 3,
+                    "reps" : 8
+                },
+                {
+                    "type" : "SetsReps",
+                    "name" : "Shrugs",
+                    "sets" : 3,
+                    "reps" : 8
+                },
+                {
+                    "type" : "SetsReps",
+                    "name" : "Wrist Curls",
+                    "sets" : 3,
+                    "reps" : 8
+                },
+                {
+                    "type" : "Spacebreak" 
+                },
+                {
+                    "type" : "Text",
+                    "text" : "* Arm Circles between sets"
+                }
+            ]
         }
     ]
 }
