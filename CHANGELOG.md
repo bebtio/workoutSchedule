@@ -5,5 +5,7 @@ TODO:
     [1] [2] [3] [4] [5] [6] [7]
      ^   ^               ^   ^
      We might need to make a circular display buffer class or something. It can get a current display index and a width and return the indices of the workouts to display as an array.
-- [] Make it so that the screenshot button saves as workout_YYYYMMDD.png
-- [] 
+- [] Make it so that screenshots dated the same are now numbered in the order they are taken. I guess I can add a time stamp, but I don't like that.
+
+Done:
+- [x] 20251130: Make it so that the screenshot button saves as workout_YYYYMMDD.png
