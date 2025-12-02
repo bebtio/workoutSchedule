@@ -5,7 +5,7 @@ require("screenshot")
 function love.load(arg)
 
     if #arg == 0 then
-        workoutFile = "workout.json"
+        workoutFile = "workout_example.json"
     else
         workoutFile = arg[1]
     end
@@ -45,20 +45,12 @@ function love.draw()
 
     local idx = 0
     for k, v in ipairs(indices) do
-        print(v)
         e = workouts.workout[v]
         local xPos = x0 + (boxSpacing / 2.0) + (rw0 + boxSpacing) * idx
         local yPos = y0 + (boxSpacing / 2.0)
         drawWorkoutBox(e.day, e.exercises, xPos, yPos, rw0, rh0)
         idx = idx + 1
     end
-
-    --for i,v in ipairs(indices) do
-        --print(i,v)
-    --end
-    --local xPos = x0 + (boxSpacing / 2.0) + (rw0 + boxSpacing)
-    --local yPos = y0 + (boxSpacing / 2.0)
-    --drawWorkoutBox(workouts.workout[drawIndex].day, workouts.workout[drawIndex].exercises, xPos, yPos, rw0, rh0)
 
 end
 
