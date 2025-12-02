@@ -141,3 +141,24 @@ function getLongestExerciseString(workoutData, font)
 
     return numWorkouts, maxWidth, maxHeight * font:getHeight()
 end
+
+function getBoxIndices( drawIndex, numToDraw, numElements )
+
+    local currentIndex = drawIndex
+
+    local indices = {}
+
+    for i = drawIndex, drawIndex+numToDraw - 1, 1 do
+
+        
+        if currentIndex > numElements then
+            currentIndex = 1
+        end
+
+        table.insert(indices, currentIndex)
+
+        currentIndex = currentIndex + 1
+    end
+
+    return indices
+end
