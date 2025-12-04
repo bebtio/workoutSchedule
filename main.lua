@@ -77,4 +77,8 @@ function love.keypressed(key)
     if key >= '1' and key <= tostring(maxBoxesToDraw) then
         numBoxesToDraw = tonumber(key)
     end
+
+    if key == 'q' then
+        love.event.quit()
+    end
 end

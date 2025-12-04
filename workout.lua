@@ -142,6 +142,8 @@ function getLongestExerciseString(workoutData, font)
     return numWorkouts, maxWidth, maxHeight * font:getHeight()
 end
 
+-- Returns indices of which workouts to draw. Makes sure to 
+-- iterate as a circular buffer.
 function getBoxIndices( drawIndex, numToDraw, numElements )
 
     local currentIndex = drawIndex
