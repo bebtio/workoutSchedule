@@ -2,6 +2,7 @@ json = require("json")
 require("workout")
 require("screenshot")
 
+
 function love.load(arg)
 
     if #arg == 0 then
@@ -76,6 +77,7 @@ function love.keypressed(key)
 
     if key >= '1' and key <= tostring(maxBoxesToDraw) then
         numBoxesToDraw = tonumber(key)
+        love.window.setMode(numBoxesToDraw*(boxSpacing+rw0), rh0 + boxSpacing) 
     end
 
     if key == 'q' then
