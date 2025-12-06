@@ -35,7 +35,7 @@ function drawExercises(exercises, x, y)
             -- Does nothing, just applies the yOffset.
             yOffset = yOffset + gh
         elseif v.type == "Linebreak" then
-            love.graphics.rectangle("fill", x, y + yOffset + gh / 2.0, rw0 *.9, 1)
+            love.graphics.rectangle("fill", x , y + yOffset + gh / 2.0, rw0 *.9, 1)
             yOffset = yOffset + gh
         elseif v.type == "Text" then
             love.graphics.print(v.text, x, y + yOffset)
