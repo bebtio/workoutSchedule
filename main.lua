@@ -3,8 +3,14 @@ require("workout")
 require("screenshot")
 
 
+function love.conf(t)
+    -- nothing implemented here.
+end
+
 function love.load(arg)
 
+    cursor = love.mouse.newCursor("FirstPug1.png")
+    love.mouse.setCursor(cursor)
     if #arg == 0 then
         workoutFile = "workout_example.json"
     else
@@ -22,17 +28,17 @@ function love.load(arg)
     end
 
 
+    numWorkouts, rw0, rh0 = getLongestExerciseString(workouts, love.graphics.getFont())
     drawIndex = 1
-    numBoxesToDraw = 4
+    numBoxesToDraw = numWorkouts
     maxBoxesToDraw = 4
     boxSpacing = 10
     curve = 30
     x0 = 0
     y0 = 0
-    numWorkouts, rw0, rh0 = getLongestExerciseString(workouts, love.graphics.getFont())
     rw0 = rw0 * 1.3
     rh0 = (rh0 + curve )  * 1.1
-    love.window.setMode(maxBoxesToDraw*(boxSpacing+rw0), rh0 + boxSpacing) 
+    love.window.setMode(numBoxesToDraw*(boxSpacing+rw0), rh0 + boxSpacing) 
     love.window.setTitle("Workout Schedule")
 end
 

@@ -2,11 +2,10 @@
 TODO:
 
 - [] Make it so screenshots go in their own screenshot folder.
-- [] Fix up the Linebreak json field so that it actually draws a line that separates workouts across a workout box.
 - [] Add some colors for background, box lines, box, and font.
-- []
 
 Done:
+- [x] 20251205: Fix up the Linebreak json field so that it actually draws a line that separates workouts across a workout box.
 - [x] 20251203: Make it so that the game screen dynamically shrinks to fit the number of currently displayed workouts. That way, when a screenshot is taken there isn't a bunch of dead screen space in the shot.
 - [x] 20251203: Make it so that screenshots dated the same are now numbered in the order they are taken. I guess I can add a time stamp, but I don't like that. (Made it so that the save format is YYYYMMDD_HHMMSS)
 - [x] 20251203: Make 'q' keypress quit the program.

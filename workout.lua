@@ -14,7 +14,7 @@ function drawWorkoutBox( dayOfWeek, exercises, x, y, width, height )
     love.graphics.rectangle("fill",x,y+curve, width, 1)
     love.graphics.print(dayOfWeek, x + (width / 2.0) - (gw / 2.0) , y + (curve / 2.0) - (gh/2.0))
 
-    width = drawExercises(exercises, x+10, y + curve)
+    width = drawExercises(exercises, x + boxSpacing, y + curve)
 end
 
 function drawExercises(exercises, x, y)
@@ -35,7 +35,7 @@ function drawExercises(exercises, x, y)
             -- Does nothing, just applies the yOffset.
             yOffset = yOffset + gh
         elseif v.type == "Linebreak" then
-            love.graphics.rectangle("fill", x, y + yOffset + gh / 2.0, 10, 1)
+            love.graphics.rectangle("fill", x, y + yOffset + gh / 2.0, rw0 *.9, 1)
             yOffset = yOffset + gh
         elseif v.type == "Text" then
             love.graphics.print(v.text, x, y + yOffset)
