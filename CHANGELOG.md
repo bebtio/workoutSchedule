@@ -1,7 +1,7 @@
 
 TODO:
 
-- [] Make it so that the index of the element shows up the the top field of the workout box. That way I can tell where I am in the file. Maybe another that shows the total number? Maybe we can show the displayIndex/numWorkouts in a corner somwhere?
+- [] Make it so that the title forces the width of the box to expand to fit. Right now, only the width of the contents of the workout determine the width of the box. We need to change that.
 - [] Make it so that pressing a button will go to the end of the list of workouts and another will go to the beginning of the list. Maybe a button that goes to the middle? Maybe have a select mode that lets you push a button followed by a number to jump to the selected workout?
 - [] Add a date field to the json and display that as well.
 - [] Make it so screenshots go in their own screenshot folder.
@@ -9,6 +9,7 @@ TODO:
 - [] Make it so that the distance between boxes and the position of the text within the boxes is relative to the computed width of the box. I'm thinking we can make the box 10% bigger than the widest piece of text. Then we can shift all the text %5 of that value to the right. Then we can make all the box coordiates 1.05 times the width of the box? Right now I just have hard coded values and I'm not sure how long that will hold up.
 
 Done:
+- [x] 20251207: Make it so that the index of the element shows up the the top field of the workout box. That way I can tell where I am in the file. Maybe another that shows the total number? Maybe we can show the displayIndex/numWorkouts in a corner somwhere?
 - [x] 20251207: Make types case insensitive.
 - [x] 20251205: Fix up the Linebreak json field so that it actually draws a line that separates workouts across a workout box.
 - [x] 20251203: Make it so that the game screen dynamically shrinks to fit the number of currently displayed workouts. That way, when a screenshot is taken there isn't a bunch of dead screen space in the shot.

@@ -42,7 +42,7 @@ end
 
 function love.update(dt)
 
-    indices = getBoxIndices(drawIndex, numBoxesToDraw, #workouts.workout, maxBoxesToDraw )
+    indices = getBoxIndices(drawIndex, numBoxesToDraw, numWorkouts, maxBoxesToDraw )
 
 end
 
@@ -53,7 +53,7 @@ function love.draw()
         e = workouts.workout[v]
         local xPos = x0 + (boxSpacing / 2.0) + (rw0 + boxSpacing) * idx
         local yPos = y0 + (boxSpacing / 2.0)
-        drawWorkoutBox(e.day, e.exercises, xPos, yPos, rw0, rh0)
+        drawWorkoutBox(drawIndex+idx, numWorkouts, e.day, e.exercises, xPos, yPos, rw0, rh0)
         idx = idx + 1
     end
 
