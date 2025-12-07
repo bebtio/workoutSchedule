@@ -24,7 +24,7 @@
                     "reps" : "8"
                 },
                 {
-                    "type": "Spacebreak"
+                    "type": "Linebreak"
                 },
                 {
                     "type" : "SetsReps",

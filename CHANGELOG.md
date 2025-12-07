@@ -1,7 +1,8 @@
 
 TODO:
 
-- [] Make it so that the index of the element shows up the the top field of the workout box. That way I can tell where I am in the file.
+- [] Make it so that the index of the element shows up the the top field of the workout box. That way I can tell where I am in the file. Maybe another that shows the total number? Maybe we can show the displayIndex/numWorkouts in a corner somwhere?
+- [] Make it so that pressing a button will go to the end of the list of workouts and another will go to the beginning of the list. Maybe a button that goes to the middle? Maybe have a select mode that lets you push a button followed by a number to jump to the selected workout?
 - [] Add a date field to the json and display that as well.
 - [] Make it so screenshots go in their own screenshot folder.
 - [] Add some colors for background, box lines, box, and font.
