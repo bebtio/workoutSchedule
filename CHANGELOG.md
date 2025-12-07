@@ -1,6 +1,8 @@
 
 TODO:
 
+- [] Make it so that the index of the element shows up the the top field of the workout box. That way I can tell where I am in the file.
+- [] Add a date field to the json and display that as well.
 - [] Make it so screenshots go in their own screenshot folder.
 - [] Add some colors for background, box lines, box, and font.
 - [] Make it so that the distance between boxes and the position of the text within the boxes is relative to the computed width of the box. I'm thinking we can make the box 10% bigger than the widest piece of text. Then we can shift all the text %5 of that value to the right. Then we can make all the box coordiates 1.05 times the width of the box? Right now I just have hard coded values and I'm not sure how long that will hold up.

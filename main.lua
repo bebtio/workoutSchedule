@@ -30,8 +30,8 @@ function love.load(arg)
 
     numWorkouts, rw0, rh0 = getLongestExerciseString(workouts, love.graphics.getFont())
     drawIndex = 1
-    numBoxesToDraw = numWorkouts
     maxBoxesToDraw = 4
+    numBoxesToDraw = maxBoxesToDraw
     boxSpacing = 10
     curve = 30
     x0 = 0
@@ -82,8 +82,10 @@ function love.keypressed(key)
     end
 
     if key >= '1' and key <= tostring(maxBoxesToDraw) then
-        numBoxesToDraw = tonumber(key)
-        love.window.setMode(numBoxesToDraw*(boxSpacing+rw0), rh0 + boxSpacing) 
+        if tonumber(key) ~= numBoxesToDraw then
+            numBoxesToDraw = tonumber(key)
+            love.window.setMode(numBoxesToDraw*(boxSpacing+rw0), rh0 + boxSpacing) 
+        end
     end
 
     if key == 'q' then
