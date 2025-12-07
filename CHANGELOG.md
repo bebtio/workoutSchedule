@@ -9,6 +9,7 @@ TODO:
 - [] Make it so that the distance between boxes and the position of the text within the boxes is relative to the computed width of the box. I'm thinking we can make the box 10% bigger than the widest piece of text. Then we can shift all the text %5 of that value to the right. Then we can make all the box coordiates 1.05 times the width of the box? Right now I just have hard coded values and I'm not sure how long that will hold up.
 
 Done:
+- [x] 20251207: Make types case insensitive.
 - [x] 20251205: Fix up the Linebreak json field so that it actually draws a line that separates workouts across a workout box.
 - [x] 20251203: Make it so that the game screen dynamically shrinks to fit the number of currently displayed workouts. That way, when a screenshot is taken there isn't a bunch of dead screen space in the shot.
 - [x] 20251203: Make it so that screenshots dated the same are now numbered in the order they are taken. I guess I can add a time stamp, but I don't like that. (Made it so that the save format is YYYYMMDD_HHMMSS)

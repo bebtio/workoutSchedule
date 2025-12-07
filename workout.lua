@@ -23,21 +23,22 @@ function drawExercises(exercises, x, y)
     local yOffset = 0
 
     for k,v in pairs(exercises) do
-        if v.type == "SetsReps" then
+        type = string.lower(v.type)
+        if type == "setsreps" then
             drawExerciseSetsReps(v.name, v.sets, v.reps, x, y + yOffset )
             yOffset = yOffset + gh
-        elseif v.type == "Reps" then
+        elseif type == "reps" then
             drawExerciseReps(v.name, v.reps, x, y + yOffset)
             yOffset = yOffset + gh
-        elseif v.type == "BigSet" then
+        elseif type == "bigset" then
             yOffset = yOffset + drawExerciseBigSet(v.exercises, v.sets, x, y + yOffset)
-        elseif v.type == "Spacebreak" then
+        elseif type == "spacebreak" then
             -- Does nothing, just applies the yOffset.
             yOffset = yOffset + gh
-        elseif v.type == "Linebreak" then
+        elseif type == "linebreak" then
             love.graphics.rectangle("fill", x , y + yOffset + gh / 2.0, rw0 *.9, 1)
             yOffset = yOffset + gh
-        elseif v.type == "Text" then
+        elseif type == "text" then
             love.graphics.print(v.text, x, y + yOffset)
             yOffset = yOffset + gh
         else

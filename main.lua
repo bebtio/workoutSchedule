@@ -9,8 +9,6 @@ end
 
 function love.load(arg)
 
-    cursor = love.mouse.newCursor("FirstPug1.png")
-    love.mouse.setCursor(cursor)
     if #arg == 0 then
         workoutFile = "workout_example.json"
     else
