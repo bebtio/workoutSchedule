@@ -8,7 +8,6 @@ function love.conf(t)
 end
 
 function love.load(arg)
-    text = "Input: "
 
     if #arg == 0 then
         workoutFile = "workout_example.json"
