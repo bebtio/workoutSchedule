@@ -85,8 +85,8 @@ function love.keypressed(key)
             numBoxesToDraw = tonumber(key)
             if #workouts.workout < numBoxesToDraw then
                 numBoxesToDraw = #workouts.workout
-                love.window.setMode(numBoxesToDraw*(boxSpacing+rw0), rh0 + boxSpacing) 
             end
+            love.window.setMode(numBoxesToDraw*(boxSpacing+rw0), rh0 + boxSpacing) 
         end
     end
 
