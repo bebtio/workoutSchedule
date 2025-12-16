@@ -15,6 +15,7 @@ function love.load(arg)
         workoutFile = arg[1]
     end
 
+    print("Loading workout: " .. workoutFile)
     file = io.open(workoutFile, "rb")
 
     workouts = nil
@@ -29,7 +30,7 @@ function love.load(arg)
     numWorkouts, rw0, rh0 = getLongestExerciseString(workouts, love.graphics.getFont())
     drawIndex = 1
     maxBoxesToDraw = 4
-    numBoxesToDraw = maxBoxesToDraw
+    numBoxesToDraw = numWorkouts 
     boxSpacing = 10
     curve = 30
     x0 = 0
@@ -53,7 +54,7 @@ function love.draw()
         e = workouts.workout[v]
         local xPos = x0 + (boxSpacing / 2.0) + (rw0 + boxSpacing) * idx
         local yPos = y0 + (boxSpacing / 2.0)
-        drawWorkoutBox(drawIndex+idx, numWorkouts, e.day, e.exercises, xPos, yPos, rw0, rh0)
+        drawWorkoutBox(drawIndex+idx, numWorkouts, e.name, e.exercises, xPos, yPos, rw0, rh0)
         idx = idx + 1
     end
 
@@ -82,7 +83,10 @@ function love.keypressed(key)
     if key >= '1' and key <= tostring(maxBoxesToDraw) then
         if tonumber(key) ~= numBoxesToDraw then
             numBoxesToDraw = tonumber(key)
-            love.window.setMode(numBoxesToDraw*(boxSpacing+rw0), rh0 + boxSpacing) 
+            if #workouts.workout < numBoxesToDraw then
+                numBoxesToDraw = #workouts.workout
+                love.window.setMode(numBoxesToDraw*(boxSpacing+rw0), rh0 + boxSpacing) 
+            end
         end
     end
 

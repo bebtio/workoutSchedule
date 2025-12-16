@@ -10,6 +10,8 @@ TODO:
 - [] Make it so that the distance between boxes and the position of the text within the boxes is relative to the computed width of the box. I'm thinking we can make the box 10% bigger than the widest piece of text. Then we can shift all the text %5 of that value to the right. Then we can make all the box coordiates 1.05 times the width of the box? Right now I just have hard coded values and I'm not sure how long that will hold up.
 
 Done:
+- [Added] 20251215: VERSION file.
+- [BugFix] 20251215: Fixed a bug where if there were fewer than 4 workouts it would display repeated workouts until four were shown. Now properly displays the amount available if less than four.
 - [x] 20251207: Make it so that the index of the element shows up the the top field of the workout box. That way I can tell where I am in the file. Maybe another that shows the total number? Maybe we can show the displayIndex/numWorkouts in a corner somwhere?
 - [x] 20251207: Make types case insensitive.
 - [x] 20251205: Fix up the Linebreak json field so that it actually draws a line that separates workouts across a workout box.
