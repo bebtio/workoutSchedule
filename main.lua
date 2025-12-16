@@ -8,6 +8,7 @@ function love.conf(t)
 end
 
 function love.load(arg)
+    text = "Input: "
 
     if #arg == 0 then
         workoutFile = "workout_example.json"
@@ -37,6 +38,9 @@ function love.load(arg)
     y0 = 0
     rw0 = rw0 * 1.3
     rh0 = (rh0 + curve )  * 1.1
+
+    -- Love configurations.
+    --love.keyboard.setKeyRepeat(true)
     love.window.setMode(numBoxesToDraw*(boxSpacing+rw0), rh0 + boxSpacing) 
     love.window.setTitle("Workout Schedule")
 end
@@ -60,10 +64,16 @@ function love.draw()
 
 end
 
-function love.keypressed(key)
+function love.keypressed(key, scancode, isrepeat)
+
+    --- Screenshot code start ---
+    print(key .. " " .. scancode .. " " .. tostring(isrepeat))
     if love.keyboard.isDown('s') then
         takeScreenShot()
     end
+    --- Screenshot code end ---
+
+    --- Workout navigation start ---
 
     -- Keep the index in range.
     if love.keyboard.isDown('right') then
@@ -72,6 +82,7 @@ function love.keypressed(key)
             drawIndex = 1
         end
     end
+
     -- Keep the index in range.
     if love.keyboard.isDown('left') then
         drawIndex = drawIndex - 1
@@ -80,6 +91,7 @@ function love.keypressed(key)
         end
     end
 
+    -- Change how many workouts to display.
     if key >= '1' and key <= tostring(maxBoxesToDraw) then
         if tonumber(key) ~= numBoxesToDraw then
             numBoxesToDraw = tonumber(key)
@@ -89,6 +101,7 @@ function love.keypressed(key)
             love.window.setMode(numBoxesToDraw*(boxSpacing+rw0), rh0 + boxSpacing) 
         end
     end
+    --- Workout navigation end ---
 
     if key == 'q' then
         love.event.quit()

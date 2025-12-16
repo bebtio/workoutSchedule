@@ -4,9 +4,9 @@ TODO:
 - [] Highlight the current workout "selected". I want to make it so that pressing left and right doesn't automatically scroll the entire list of workouts. Instead I want to have the highlighted workout move until it hits the edge and then we scroll.
 - [] Make it so that the title forces the width of the box to expand to fit. Right now, only the width of the contents of the workout determine the width of the box. We need to change that. Or, maybe I can subdivide the bottom curve part to have the index instead? Sort of how the name of the workout is displayed at the top.
 - [] Make it so that pressing a button will go to the end of the list of workouts and another will go to the beginning of the list. Maybe a button that goes to the middle? Maybe have a select mode that lets you push a button followed by a number to jump to the selected workout?
-- [] Add a date field to the json and display that as well? Maybe I don't care about this.
 - [] Add some colors for background, box lines, box, and font.
 - [] Make it so that the distance between boxes and the position of the text within the boxes is relative to the computed width of the box. I'm thinking we can make the box 10% bigger than the widest piece of text. Then we can shift all the text %5 of that value to the right. Then we can make all the box coordiates 1.05 times the width of the box? Right now I just have hard coded values and I'm not sure how long that will hold up.
+- [] Add a date field to the json and display that as well? Maybe I don't care about this.
 
 Done:
 - [x] 20251216: Make it so screenshots go in their own screenshot folder.
