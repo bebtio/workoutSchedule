@@ -28,9 +28,16 @@ function love.load(arg)
 
 
     numWorkouts, rw0, rh0 = getLongestExerciseString(workouts, love.graphics.getFont())
-    drawIndex = 1
+    drawIndowStartIdx = 1
+    highlightIndex = 1
     maxBoxesToDraw = 4
+
+    -- Set num boxes to draw to maxBoxesToDraw at max.
     numBoxesToDraw = numWorkouts 
+    if numWorkouts > maxBoxesToDraw then
+        numBoxesToDraw = maxBoxesToDraw
+    end
+
     boxSpacing = 10
     curve = 30
     x0 = 0
@@ -46,18 +53,24 @@ end
 
 function love.update(dt)
 
-    indices = getBoxIndices(drawIndex, numBoxesToDraw, numWorkouts, maxBoxesToDraw )
+    indices = getBoxIndices(drawIndowStartIdx, numBoxesToDraw, numWorkouts, maxBoxesToDraw )
 
 end
 
 function love.draw()
 
     local idx = 0
+    local displayName = ""
+    local e
     for k, v in ipairs(indices) do
         e = workouts.workout[v]
+        displayName = e.name .. " (" .. tostring(v) .. "/" .. tostring(numWorkouts) .. ")"
+        
         local xPos = x0 + (boxSpacing / 2.0) + (rw0 + boxSpacing) * idx
         local yPos = y0 + (boxSpacing / 2.0)
-        drawWorkoutBox(drawIndex+idx, numWorkouts, e.name, e.exercises, xPos, yPos, rw0, rh0)
+
+        drawWorkoutBox(displayName, e.exercises, xPos, yPos, rw0, rh0)
+
         idx = idx + 1
     end
 
@@ -66,7 +79,6 @@ end
 function love.keypressed(key, scancode, isrepeat)
 
     --- Screenshot code start ---
-    print(key .. " " .. scancode .. " " .. tostring(isrepeat))
     if love.keyboard.isDown('s') then
         takeScreenShot()
     end
@@ -76,17 +88,17 @@ function love.keypressed(key, scancode, isrepeat)
 
     -- Keep the index in range.
     if love.keyboard.isDown('right') then
-        drawIndex = drawIndex + 1
-        if drawIndex > #workouts.workout then
-            drawIndex = 1
+        drawIndowStartIdx = drawIndowStartIdx + 1
+        if drawIndowStartIdx > #workouts.workout then
+            drawIndowStartIdx = 1
         end
     end
 
     -- Keep the index in range.
     if love.keyboard.isDown('left') then
-        drawIndex = drawIndex - 1
-        if drawIndex <= 0 then
-            drawIndex = #workouts.workout
+        drawIndowStartIdx = drawIndowStartIdx - 1
+        if drawIndowStartIdx <= 0 then
+            drawIndowStartIdx = #workouts.workout
         end
     end
 
@@ -94,9 +106,11 @@ function love.keypressed(key, scancode, isrepeat)
     if key >= '1' and key <= tostring(maxBoxesToDraw) then
         if tonumber(key) ~= numBoxesToDraw then
             numBoxesToDraw = tonumber(key)
-            if #workouts.workout < numBoxesToDraw then
-                numBoxesToDraw = #workouts.workout
+
+            if numWorkouts < numBoxesToDraw then
+                numBoxesToDraw = numWorkouts
             end
+
             love.window.setMode(numBoxesToDraw*(boxSpacing+rw0), rh0 + boxSpacing) 
         end
     end

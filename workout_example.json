@@ -2,7 +2,7 @@
     "workout":
     [
         {
-            "day": "Day 1 Chest",
+            "name": "Day 1 Chest",
             "exercises":
             [
                 {
@@ -73,7 +73,7 @@
             ] 
         },
         {
-            "day": "Day 2 Legs",
+            "name": "Day 2 Legs",
             "exercises":
             [
                 {
@@ -132,7 +132,7 @@
             ] 
         },
         {
-            "day" : "Day 3 Back",
+            "name" : "Day 3 Back",
             "exercises" : 
             [
                 {
@@ -184,7 +184,7 @@
             ]
         },
         {
-            "day" : "Day 4 Shoulders",
+            "name" : "Day 4 Shoulders",
             "exercises" : 
             [
                 {
