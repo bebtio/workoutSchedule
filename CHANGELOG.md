@@ -8,7 +8,7 @@ TODO:
 - [] Add a date field to the json and display that as well? Maybe I don't care about this.
 
 Done:
-- [x] 20251217: Make it so that the title forces the width of the box to expand to fit. Right now, only the width of the contents of the workout determine the width of the box. We need to change that. Or, maybe I can subdivide the bottom curve part to have the index instead? Sort of how the name of the workout is displayed at the top. -- Solved this by just changing the inputs to the drawWorkoutBox function. Created the name by concatenating the current index with the total number of workouts with the name. Easy.
+- [x] 20251216: Make it so that the title forces the width of the box to expand to fit. Right now, only the width of the contents of the workout determine the width of the box. We need to change that. Or, maybe I can subdivide the bottom curve part to have the index instead? Sort of how the name of the workout is displayed at the top. -- Solved this by just changing the inputs to the drawWorkoutBox function. Created the name by concatenating the current index with the total number of workouts with the name. Easy.
 - [x] 20251216: Make it so screenshots go in their own screenshot folder.
 - [BugFix] 20251215: Fixed a bug where if there were fewer than 4 workouts it would display repeated workouts until four were shown. Now properly displays the amount available if less than four.
 - [x] 20251207: Make it so that the index of the element shows up the the top field of the workout box. That way I can tell where I am in the file. Maybe another that shows the total number? Maybe we can show the displayIndex/numWorkouts in a corner somwhere?
