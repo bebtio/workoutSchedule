@@ -92,18 +92,31 @@ function drawExerciseBigSet(exercises, numSets, x, y)
     return yOffset
 end
 
+--[[
+    Computes the string with the largest width in text pixels and
+    Computes the height of the largest workout box in text pixels.
+    Computes the number of workouts.
+
+    These values will be used to draw all workouts uniformally based on the largest of these
+    dimensions.
+--]]
 function getLongestExerciseString(workoutData, font)
     local maxWidth = 0
     local maxHeight = 0
     local numWorkouts = 0
 
+    -- Iterate over all the workouts.
     for _, day in ipairs(workoutData.workout) do
         local currentHeight = 0
         local currentWidth = 0
         numWorkouts = numWorkouts+1
+        -- Set initial width to the width of the workout name.
+        local currentWidth = font:getWidth(day.name)
+
+        -- Iterate over all the elements of the elements in this workout. 
         for _, exercise in ipairs(day.exercises) do
 
-            local currentWidth = 0
+            
             -- This SetReps and Text are likely to be the longest strings so used those
             -- to compute the width.
             if exercise.type == "SetsReps" then
