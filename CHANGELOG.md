@@ -9,6 +9,7 @@ TODO:
 - [] Add some screen scaling so the image grows with a mouse drag and stuff. I think there's a single love2d function for this but I don't remember.
 
 Done:
+- [Added] 20251219: Added validation code that checks the workout types before starting. If there is an invalid one present, it prints out which workout and the name of the key and then exits.
 - [x] 20251216: Make it so that the title forces the width of the box to expand to fit. Right now, only the width of the contents of the workout determine the width of the box. We need to change that. Or, maybe I can subdivide the bottom curve part to have the index instead? Sort of how the name of the workout is displayed at the top. -- Solved this by just changing the inputs to the drawWorkoutBox function. Created the name by concatenating the current index with the total number of workouts with the name. Easy.
 - [x] 20251216: Make it so screenshots go in their own screenshot folder.
 - [BugFix] 20251215: Fixed a bug where if there were fewer than 4 workouts it would display repeated workouts until four were shown. Now properly displays the amount available if less than four.

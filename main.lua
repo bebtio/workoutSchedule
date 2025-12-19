@@ -27,6 +27,9 @@ function love.load(arg)
     end
 
 
+    if not validateInput(workouts) then
+        os.exit(0)
+    end
     numWorkouts, rw0, rh0 = getLongestExerciseString(workouts, love.graphics.getFont())
     drawIndowStartIdx = 1
     highlightIndex = 1

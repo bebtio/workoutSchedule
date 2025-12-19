@@ -43,8 +43,7 @@ function drawExercises(exercises, x, y)
             love.graphics.print(v.text, x, y + yOffset)
             yOffset = yOffset + gh
         else
-            -- If the next thing selected wasn't anything valid, remove a yOffset so we don't have blank space.
-            yOffset = yOffset - gh
+            -- If the next thing selected wasn't anything valid, do nothing.
         end
     end
 
@@ -172,4 +171,33 @@ function getBoxIndices( drawIndex, numToDraw, numElements )
     end
 
     return indices
+end
+
+local validKeys = {
+    setsreps = true,
+    bigset = true,
+    text = true,
+    reps = true,
+    spacebreak = true,
+    linebreak = true
+}
+
+function validateInput( workoutData )
+    returnVal = true
+    for _, day in ipairs(workoutData.workout) do
+        for _, v in ipairs(day.exercises) do
+            local type = v.type or ""
+            if not validKeys[type] then 
+                print(string.format("Key (%s) for workout (%s) is not a valid key.", type, day.name))
+                print("Exiting.")
+                returnVal = false
+            end
+        end
+    end
+
+    -- We want to iterate over the entire structure and print out errors
+    -- for each invalid key. Then we return false if there was any or return true
+    -- if there were no invalid keys.
+    return returnVal
+
 end
