@@ -7,7 +7,7 @@ function takeScreenShot()
         os.execute("mkdir -p " .. screenshotsPath)
 
         -- Create the output file string.
-        local path = screenshotsPath .. "/workout_" .. os.date("%Y%m%d_%H%M%S") .. ".png"
+        local path = string.format( "%s/workout_%s.png", screenshotsPath, os.date("%Y%m%d_%H%M%S") )
         print("Saving file to " .. path)
 
         -- Create the output file.

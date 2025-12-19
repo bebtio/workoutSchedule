@@ -64,7 +64,7 @@ function love.draw()
     local e
     for k, v in ipairs(indices) do
         e = workouts.workout[v]
-        displayName = e.name .. " (" .. tostring(v) .. "/" .. tostring(numWorkouts) .. ")"
+        displayName = string.format("%s (%d/%d)", e.name,v,numWorkouts)
         
         local xPos = x0 + (boxSpacing / 2.0) + (rw0 + boxSpacing) * idx
         local yPos = y0 + (boxSpacing / 2.0)

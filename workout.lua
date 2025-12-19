@@ -23,8 +23,8 @@ function drawExercises(exercises, x, y)
     local gh = font:getHeight()
     local yOffset = 0
 
-    for k,v in pairs(exercises) do
-        type = string.lower(v.type)
+    for _,v in ipairs(exercises) do
+        type = v.type
         if type == "setsreps" then
             drawExerciseSetsReps(v.name, v.sets, v.reps, x, y + yOffset )
             yOffset = yOffset + gh
@@ -51,11 +51,11 @@ function drawExercises(exercises, x, y)
 end
 
 function drawExerciseSetsReps(exercise, numSets, numReps, x, y)
-    love.graphics.print(exercise .. ": " .. numSets .. "x" .. numReps, x, y)
+    love.graphics.print(string.format("%s: %dx%d",exercise, numSets, numReps), x, y)
 end
 
 function drawExerciseReps(exercise, numReps, x, y)
-    love.graphics.print(exercise .. ": " .. numReps, x, y)
+    love.graphics.print(string.format("%s: %d", exercise, numReps), x, y)
 end
 
 function drawExerciseBigSet(exercises, numSets, x, y)
@@ -66,7 +66,7 @@ function drawExerciseBigSet(exercises, numSets, x, y)
 
     for k,v in pairs(exercises) do
         local strLen = 0
-        exerciseStr = v.reps .. " " .. v.name
+        exerciseStr = string.format("%s %s", v.reps, v.name)
         love.graphics.print(exerciseStr, x, y + yOffset)
         strLen = font:getWidth(exerciseStr)
 
@@ -103,58 +103,52 @@ end
 function getLongestExerciseString(workoutData, font)
     local maxWidth = 0
     local maxHeight = 0
-    local numWorkouts = 0
+    local fontHeight = font:getHeight()
+    local numWorkouts = #workoutData.workout -- Built-in Lua length operator
 
-    -- Iterate over all the workouts.
     for _, day in ipairs(workoutData.workout) do
-        local currentHeight = 0
-        local currentWidth = 0
-        numWorkouts = numWorkouts+1
-        -- Set initial width to the width of the workout name.
-        local currentWidth = font:getWidth(day.name)
+        local workoutHeight = 0
+        -- Initial width is the name of the workout day
+        local workoutWidth = font:getWidth(day.name)
 
-        -- Iterate over all the elements of the elements in this workout. 
-        for _, exercise in ipairs(day.exercises) do
+        for _, v in ipairs(day.exercises) do
+            local type = v.type or ""
+            local lineWeight = 1 -- How many "lines" high this exercise is
+            local exerciseWidth = 0
 
-            
-            -- This SetReps and Text are likely to be the longest strings so used those
-            -- to compute the width.
-            if exercise.type == "SetsReps" then
-                local sets = tostring(exercise.sets)
-                local reps = tostring(exercise.reps)
-                local str = exercise.name .. ": " .. sets .. " x " .. reps
+            if type == "setsreps" then
+                local str = string.format("%s: %s x %s", v.name or "", v.sets or 0, v.reps or 0)
+                exerciseWidth = font:getWidth(str)
 
-                currentWidth = font:getWidth(str)
+            elseif type == "text" then
+                exerciseWidth = font:getWidth(v.text or "")
 
-
-                currentHeight = currentHeight + 1
-            elseif exercise.type == "Text" then
-                currentWidth = font:getWidth(exercise.text)
-                currentHeight = currentHeight + 1
-            elseif exercise.type == "BigSet" then
-                -- Big set exercises will always be stacked so measure how
-                -- many there are and add them to the running height.
-
-                for _, exer in pairs( exercise.exercises ) do
-                    local str = exercise.sets .. " " .. exer.name .. " " .. exer.reps
-                    currentWidth = font:getWidth(str) + 50
+            elseif type == "bigset" then
+                -- Height is the number of exercises + 1 for the "Sets" header
+                lineWeight = #v.exercises + 1 
+                
+                -- Check width for every exercise in the BigSet
+                for _, exer in ipairs(v.exercises) do
+                    local str = string.format("%s %s %s", v.sets or 0, exer.name or "", exer.reps or 0)
+                    exerciseWidth = math.max(exerciseWidth, font:getWidth(str) + 50)
                 end
-                currentHeight = currentHeight + #exercise.exercises
-            else
-                currentHeight = currentHeight + 1
-            end  
-
-            if currentWidth > maxWidth then
-                maxWidth = currentWidth 
+            
+            elseif type == "linebreak" or type == "spacebreak" then
+                lineWeight = 1
+                exerciseWidth = 0
             end
 
-            if currentHeight > maxHeight then
-                maxHeight = currentHeight
-            end
+            -- Update the current workout's max width and total height
+            workoutWidth = math.max(workoutWidth, exerciseWidth)
+            workoutHeight = workoutHeight + lineWeight
         end
+
+        -- Compare this workout's totals to the global maximums
+        maxWidth = math.max(maxWidth, workoutWidth)
+        maxHeight = math.max(maxHeight, workoutHeight)
     end
 
-    return numWorkouts, maxWidth, maxHeight * font:getHeight()
+    return numWorkouts, maxWidth, maxHeight * fontHeight
 end
 
 -- Returns indices of which workouts to draw. Makes sure to 

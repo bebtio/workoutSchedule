@@ -6,53 +6,53 @@
             "exercises":
             [
                 {
-                    "type" : "SetsReps",
+                    "type" : "setsreps",
                     "name" : "Dumbell Bench",
                     "sets" : "3",
                     "reps" : "8"
                 },
                 {
-                    "type" : "SetsReps",
+                    "type" : "setsreps",
                     "name" : "Dumbell flies",
                     "sets" : "3",
                     "reps" : "8"
                 },
                 {
-                    "type" : "SetsReps",
+                    "type" : "setsreps",
                     "name" : "One Armed Rows",
                     "sets" : "3",
                     "reps" : "8"
                 },
                 {
-                    "type": "Linebreak"
+                    "type": "linebreak"
                 },
                 {
-                    "type" : "SetsReps",
+                    "type" : "setsreps",
                     "name" : "Skull Crushers",
                     "sets" : "3",
                     "reps" : "8"
                 },
                 {
-                    "type" : "SetsReps",
+                    "type" : "setsreps",
                     "name" : "Overhead Tricep Extensions",
                     "sets" : "3",
                     "reps" : "8"
                 },
                 {
-                    "type" : "SetsReps",
+                    "type" : "setsreps",
                     "name" : "Kickbacks",
                     "sets" : "3",
                     "reps" : "8"
                 },
                 {
-                    "type" : "Text",
+                    "type" : "text",
                     "text" : "* Do 5 pushups between every set."
                 },
                 {
-                    "type" : "Spacebreak"
+                    "type" : "spacebreak"
                 },
                 {
-                    "type" : "BigSet",
+                    "type" : "bigset",
                     "sets": 3,
                     "exercises":
                     [
@@ -77,56 +77,56 @@
             "exercises":
             [
                 {
-                    "type" : "SetsReps",
+                    "type" : "setsreps",
                     "name" : "Back Squat",
                     "sets" : "3",
                     "reps" : "8"
                 },
                 {
-                    "type" : "SetsReps",
+                    "type" : "setsreps",
                     "name" : "Deadlift",
                     "sets" : "3",
                     "reps" : "8"
                 },
                 {
-                    "type" : "SetsReps",
+                    "type" : "setsreps",
                     "name" : "Stiff Leg Deadlift",
                     "sets" : "3",
                     "reps" : "8"
                 },
                 {
-                    "type" : "SetsReps",
+                    "type" : "setsreps",
                     "name" : "Deadlift",
                     "sets" : "3",
                     "reps" : "8"
                 },
                 {
-                    "type" : "Spacebreak"
+                    "type" : "spacebreak"
                 },
                 {
-                    "type" : "SetsReps",
+                    "type" : "setsreps",
                     "name" : "Calf Rase",
                     "sets" : "3",
                     "reps" : "8"
                 },
                 {
-                    "type" : "SetsReps",
+                    "type" : "setsreps",
                     "name" : "Walking Lunge",
                     "sets" : 3,
                     "reps" : 8
 
                 },
                 {
-                    "type" : "SetsReps",
+                    "type" : "setsreps",
                     "name" : "Dumbell Shoulder Press",
                     "sets" : 3,
                     "reps" : 8
                 },
                 {
-                    "type" : "Spacebreak"
+                    "type" : "spacebreak"
                 },
                 {
-                    "type" : "Text",
+                    "type" : "text",
                     "text" : "* Air Squats on every set"
                 }
             ] 
@@ -136,49 +136,49 @@
             "exercises" : 
             [
                 {
-                    "type" : "SetsReps",
+                    "type" : "setsreps",
                     "name" : "One Arm Rows",
                     "sets" : 3,
                     "reps" : 8
                 },
                 {
-                    "type" : "SetsReps",
+                    "type" : "setsreps",
                     "name" : "Dumbell Rows",
                     "sets" : 3,
                     "reps" : 8
                 },
                 {
-                    "type" : "SetsReps",
+                    "type" : "setsreps",
                     "name" : "Incline Bench",
                     "sets" : 3,
                     "reps" : 8
                 },
                 {
-                    "type" : "Spacebreak"
+                    "type" : "spacebreak"
                 },
                 {
-                    "type" : "SetsReps",
+                    "type" : "setsreps",
                     "name" : "EZ Bar Curls",
                     "sets" : 3,
                     "reps" : 8
                 },
                 {
-                    "type" : "SetsReps",
+                    "type" : "setsreps",
                     "name" : "Lying Curls",
                     "sets" : 3,
                     "reps" : 8
                 },
                 {
-                    "type" : "SetsReps",
+                    "type" : "setsreps",
                     "name" : "Dumbell Curls",
                     "sets" : 3,
                     "reps" : 8
                 },
                 {
-                    "type" : "Spacebreak" 
+                    "type" : "spacebreak" 
                 },
                 {
-                    "type" : "Text",
+                    "type" : "text",
                     "text" : "* 5 Pull ups between each set"
                 }
             ]
@@ -188,49 +188,49 @@
             "exercises" : 
             [
                 {
-                    "type" : "SetsReps",
+                    "type" : "setsreps",
                     "name" : "Dumbell Shoulder Press",
                     "sets" : 3,
                     "reps" : 8
                 },
                 {
-                    "type" : "SetsReps",
+                    "type" : "setsreps",
                     "name" : "Side Raises",
                     "sets" : 3,
                     "reps" : 8
                 },
                 {
-                    "type" : "SetsReps",
+                    "type" : "setsreps",
                     "name" : "Hang Clean",
                     "sets" : 3,
                     "reps" : 8
                 },
                 {
-                    "type" : "Spacebreak"
+                    "type" : "spacebreak"
                 },
                 {
-                    "type" : "SetsReps",
+                    "type" : "setsreps",
                     "name" : "One Arm Dumbell Cleans",
                     "sets" : 3,
                     "reps" : 8
                 },
                 {
-                    "type" : "SetsReps",
+                    "type" : "setsreps",
                     "name" : "Shrugs",
                     "sets" : 3,
                     "reps" : 8
                 },
                 {
-                    "type" : "SetsReps",
+                    "type" : "setsreps",
                     "name" : "Wrist Curls",
                     "sets" : 3,
                     "reps" : 8
                 },
                 {
-                    "type" : "Spacebreak" 
+                    "type" : "spacebreak" 
                 },
                 {
-                    "type" : "Text",
+                    "type" : "text",
                     "text" : "* Arm Circles between sets"
                 }
             ]
