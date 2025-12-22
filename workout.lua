@@ -1,4 +1,4 @@
-function drawWorkoutBox(displayName, exercises, x, y, width, height )
+function drawWorkoutBox(displayName, exercises, x, y, width, height, highlight )
     local rw1 = width  - 2
     local rh1 = height - 2
     local offsetw = (width - rw1)/2.0
@@ -7,14 +7,16 @@ function drawWorkoutBox(displayName, exercises, x, y, width, height )
     local gw = font:getWidth(displayName)
     local gh = font:getHeight(displayName)
 
+    if highlight then
+        -- Eventually want to make this a configuration. Hard code to a pretty blue for now.
+        love.graphics.setColor(0,.5,1)
+    end
     love.graphics.rectangle("fill",x,y, width, height, curve, curve)
     love.graphics.setColor(0,0,0)
     love.graphics.rectangle("fill",x+offsetw,y+offseth,rw1,rh1, curve, curve)
     love.graphics.setColor(1,1,1)
     love.graphics.rectangle("fill",x,y+curve, width, 1)
     love.graphics.print(displayName, x + (width / 2.0) - (gw / 2.0) , y + (curve / 2.0) - (gh/2.0))
-
-
     width = drawExercises(exercises, x + boxSpacing, y + curve)
 end
 
@@ -152,7 +154,7 @@ end
 
 -- Returns indices of which workouts to draw. Makes sure to 
 -- iterate as a circular buffer.
-function getBoxIndices( drawIndex, numToDraw, numElements )
+function getBoxIndices( drawIndex, numToDraw, numElements)
 
     local currentIndex = drawIndex
 

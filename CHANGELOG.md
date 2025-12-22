@@ -7,6 +7,7 @@ TODO:
 - [] Make it so that the distance between boxes and the position of the text within the boxes is relative to the computed width of the box. I'm thinking we can make the box 10% bigger than the widest piece of text. Then we can shift all the text %5 of that value to the right. Then we can make all the box coordiates 1.05 times the width of the box? Right now I just have hard coded values and I'm not sure how long that will hold up.
 - [] Add a date field to the json and display that as well? Maybe I don't care about this.
 - [] Add some screen scaling so the image grows with a mouse drag and stuff. I think there's a single love2d function for this but I don't remember.
+- [] Add a state machine in front of this entire thing? The current state that this is existing in is the workoutState. Maybe I can add a select workout state to load a file. We can have a main menu we can open and close with the escape key maybe? Or maybe something clickable? I'll think about that.
 
 Done:
 - [Added] 20251219: Added validation code that checks the workout types before starting. If there is an invalid one present, it prints out which workout and the name of the key and then exits.

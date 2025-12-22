@@ -72,8 +72,12 @@ function love.draw()
         local xPos = x0 + (boxSpacing / 2.0) + (rw0 + boxSpacing) * idx
         local yPos = y0 + (boxSpacing / 2.0)
 
-        drawWorkoutBox(displayName, e.exercises, xPos, yPos, rw0, rh0)
-
+        -- Initial hightlight code. Just highlight the frist thing all the time.
+        if idx == 0 then
+            drawWorkoutBox(displayName, e.exercises, xPos, yPos, rw0, rh0, true)
+        else
+            drawWorkoutBox(displayName, e.exercises, xPos, yPos, rw0, rh0, false)
+        end
         idx = idx + 1
     end
 
@@ -91,18 +95,18 @@ function love.keypressed(key, scancode, isrepeat)
 
     -- Keep the index in range.
     if love.keyboard.isDown('right') then
-        drawIndowStartIdx = drawIndowStartIdx + 1
-        if drawIndowStartIdx > #workouts.workout then
-            drawIndowStartIdx = 1
+            drawIndowStartIdx = drawIndowStartIdx + 1
+            if drawIndowStartIdx > #workouts.workout then
+                drawIndowStartIdx = 1
         end
     end
 
     -- Keep the index in range.
     if love.keyboard.isDown('left') then
-        drawIndowStartIdx = drawIndowStartIdx - 1
-        if drawIndowStartIdx <= 0 then
-            drawIndowStartIdx = #workouts.workout
-        end
+            drawIndowStartIdx = drawIndowStartIdx - 1
+            if drawIndowStartIdx <= 0 then
+                drawIndowStartIdx = #workouts.workout
+            end
     end
 
     -- Change how many workouts to display.
