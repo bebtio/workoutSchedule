@@ -36,6 +36,7 @@ function workout:update()
     self.indices = getBoxIndices(self.drawIndowStartIdx, self.numBoxesToDraw, self.numWorkouts)
 end
 
+-- Handles the key presses and updates the workout table accordingly.
 function workout:handleKeyPresses(key)
     --- Workout navigation start ---
 
@@ -72,6 +73,7 @@ function workout:handleKeyPresses(key)
     --- Workout navigation end ---
 end
 
+-- Draws the workouts given the current state of the workout table.
 function workout:main(workouts)
     local idx = 0
     local displayName = ""
@@ -94,6 +96,7 @@ function workout:main(workouts)
     end
 end
 
+-- Draws a single workout.
 function drawWorkoutBox(displayName, exercises, boxSpacing, x, y, width, height, curve, highlight )
     local rw1 = width  - 2
     local rh1 = height - 2
@@ -116,6 +119,7 @@ function drawWorkoutBox(displayName, exercises, boxSpacing, x, y, width, height,
     drawExercises(exercises, x + boxSpacing, y + curve, width)
 end
 
+-- Draws the given exercise type inside the workout box.
 function drawExercises(exercises, x, y, boxWidth)
     local font = love.graphics.getFont()
     local gh = font:getHeight()
@@ -250,7 +254,6 @@ end
 
 -- Returns indices of which workouts to draw. Makes sure to 
 -- iterate as a circular buffer.
-
 function getBoxIndices( drawIndex, numToDraw, numElements)
 
     local currentIndex = drawIndex
@@ -273,6 +276,7 @@ function getBoxIndices( drawIndex, numToDraw, numElements)
     return indices
 end
 
+-- 
 local validKeys = {
     setsreps = true,
     bigset = true,
@@ -282,7 +286,7 @@ local validKeys = {
     linebreak = true
 }
 
-function workout:validateInput( workoutData )
+function validateInput( workoutData )
     returnVal = true
     for _, day in ipairs(workoutData.workout) do
         for _, v in ipairs(day.exercises) do

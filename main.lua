@@ -2,7 +2,6 @@ json = require("json")
 require("workout")
 require("screenshot")
 require("mode")
-require("navigation")
 
 
 function love.conf(t)
@@ -28,8 +27,7 @@ function love.load(arg)
         workouts =  json.decode(jsonString)
     end
 
-
-    if not workout:validateInput(workouts) then
+    if not validateInput(workouts) then
         os.exit(0)
     end
 
@@ -40,7 +38,6 @@ function love.load(arg)
 
 
     -- Love configurations.
-    --love.keyboard.setKeyRepeat(true)
     love.window.setTitle("Workout Schedule")
 end
 
@@ -72,11 +69,12 @@ function love.keypressed(key, scancode, isrepeat)
     end
     --- Screenshot code end ---
 
-    workout:handleKeyPresses(key)
 
     if key == 'q' then
         love.event.quit()
     end
+
+    workout:handleKeyPresses(key)
 
     -- Change the mode if necessary.
     setModeByKey(key)
