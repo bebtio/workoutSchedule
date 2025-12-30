@@ -1,4 +1,62 @@
-function drawWorkoutBox(displayName, exercises, x, y, width, height, highlight )
+workout = 
+{
+    indices = {},
+    drawIndowStartIdx = 1,
+    highlightIndex = 1,
+    maxBoxesToDraw = 4,
+    numWorkouts = 0,
+    rw0 = 0,
+    rh0 = 0,
+    boxSpacing = 10,
+    curve = 30,
+    x0 = 0,
+    y0 = 0,
+    rw0 = 0,
+    rh0 = 0,
+    numBoxesToDraw = numWorkouts 
+}
+
+function workout:init(workouts, font)
+
+    self.numWorkouts, self.rw0, self.rh0 = getLongestExerciseString(workouts, font)
+    self.rw0 = self.rw0 * 1.3
+    self.rh0 = (self.rh0 + self.curve )  * 1.1
+
+    -- Set num boxes to draw to maxBoxesToDraw at max.
+    self.numBoxesToDraw = self.numWorkouts 
+    if self.numWorkouts > self.maxBoxesToDraw then
+        self.numBoxesToDraw = self.maxBoxesToDraw
+    end
+    love.window.setMode(self.numBoxesToDraw*(self.boxSpacing+self.rw0), self.rh0 + self.boxSpacing) 
+end
+
+function workout:handleKeyPress(key)
+
+end
+
+function workout:main(workouts)
+    local idx = 0
+    local displayName = ""
+    local e
+
+    for k, v in ipairs(self.indices) do
+        e = workouts.workout[v]
+        displayname = string.format("%s (%d/%d)", e.name,v,self.numWorkouts)
+        
+        local xpos = self.x0 + (self.boxSpacing / 2.0) + (self.rw0 + self.boxSpacing) * idx
+        local ypos = self.y0 + (self.boxSpacing / 2.0)
+
+        -- initial hightlight code. just highlight the frist thing all the time.
+        if idx == 0 then
+            drawWorkoutBox(displayname, e.exercises, self.boxSpacing, xpos, ypos, self.rw0, self.rh0, self.curve, true)
+        else
+            drawWorkoutBox(displayname, e.exercises, self.boxSpacing, xpos, ypos, self.rw0, self.rh0, self.curve, false)
+        end
+        idx = idx + 1
+    end
+end
+
+function drawWorkoutBox(displayName, exercises, boxSpacing, x, y, width, height, curve, highlight )
     local rw1 = width  - 2
     local rh1 = height - 2
     local offsetw = (width - rw1)/2.0
@@ -17,10 +75,10 @@ function drawWorkoutBox(displayName, exercises, x, y, width, height, highlight )
     love.graphics.setColor(1,1,1)
     love.graphics.rectangle("fill",x,y+curve, width, 1)
     love.graphics.print(displayName, x + (width / 2.0) - (gw / 2.0) , y + (curve / 2.0) - (gh/2.0))
-    width = drawExercises(exercises, x + boxSpacing, y + curve)
+    drawExercises(exercises, x + boxSpacing, y + curve, width)
 end
 
-function drawExercises(exercises, x, y)
+function drawExercises(exercises, x, y, boxWidth)
     local font = love.graphics.getFont()
     local gh = font:getHeight()
     local yOffset = 0
@@ -39,7 +97,7 @@ function drawExercises(exercises, x, y)
             -- Does nothing, just applies the yOffset.
             yOffset = yOffset + gh
         elseif type == "linebreak" then
-            love.graphics.rectangle("fill", x , y + yOffset + gh / 2.0, rw0 *.9, 1)
+            love.graphics.rectangle("fill", x , y + yOffset + gh / 2.0, boxWidth *.9, 1)
             yOffset = yOffset + gh
         elseif type == "text" then
             love.graphics.print(v.text, x, y + yOffset)
@@ -154,10 +212,15 @@ end
 
 -- Returns indices of which workouts to draw. Makes sure to 
 -- iterate as a circular buffer.
+function workout:update()
+    self.indices = getBoxIndices(self.drawIndowStartIdx, self.numBoxesToDraw, self.numWorkouts)
+end
+
 function getBoxIndices( drawIndex, numToDraw, numElements)
 
     local currentIndex = drawIndex
 
+    -- Reset indices
     local indices = {}
 
     for i = drawIndex, drawIndex+numToDraw - 1, 1 do
@@ -184,7 +247,7 @@ local validKeys = {
     linebreak = true
 }
 
-function validateInput( workoutData )
+function workout:validateInput( workoutData )
     returnVal = true
     for _, day in ipairs(workoutData.workout) do
         for _, v in ipairs(day.exercises) do
@@ -202,4 +265,40 @@ function validateInput( workoutData )
     -- if there were no invalid keys.
     return returnVal
 
+end
+
+function workout:navigation(key)
+    --- Workout navigation start ---
+
+    -- Keep the index in range.
+    if key == "right"
+    or key == "l" then -- Allow vim like motions
+            self.drawIndowStartIdx = self.drawIndowStartIdx + 1
+            if self.drawIndowStartIdx > self.numWorkouts then
+                self.drawIndowStartIdx = 1
+        end
+    end
+
+    -- Keep the index in range.
+    if key == "left"
+    or key == "h" then -- Allow vim like motions
+            self.drawIndowStartIdx = self.drawIndowStartIdx - 1
+            if self.drawIndowStartIdx <= 0 then
+                self.drawIndowStartIdx = self.numWorkouts
+            end
+    end
+
+    -- Change how many workouts to display.
+    if key >= '1' and key <= tostring(self.maxBoxesToDraw) then
+        if tonumber(key) ~= self.numBoxesToDraw then
+            self.numBoxesToDraw = tonumber(key)
+
+            if self.numWorkouts < self.numBoxesToDraw then
+                self.numBoxesToDraw = self.numWorkouts
+            end
+
+            love.window.setMode(self.numBoxesToDraw*(self.boxSpacing+self.rw0), self.rh0 + self.boxSpacing) 
+        end
+    end
+    --- Workout navigation end ---
 end
