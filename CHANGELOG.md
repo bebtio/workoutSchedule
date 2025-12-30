@@ -1,13 +1,25 @@
 
 TODO:
 
+- [] Add different draw modes first. I want to add a mode for listing: workouts, notes, and max lifts. Each bound to a key press.
+    - [] w can be workouts
+    - [] n can be notes
+    - [] m can be max lifts.
+    - [] I will want to separate each of these into their own files with their own rules on how to display each. I already have a workout.lua file handling all the workout graphics so thats good.
+
+- []  Add a state machine in front of this entire thing? The current state that this is existing in is the workoutState. Maybe I can add a select workout state to load a file. We can have a main menu we can open and close with the escape key maybe? Or maybe something clickable? I'll think about that.
+
 - [] Highlight the current workout "selected". I want to make it so that pressing left and right doesn't automatically scroll the entire list of workouts. Instead I want to have the highlighted workout move until it hits the edge and then we scroll. This may be accomplished by changing the condition on which getBoxIndices is called. I could keep a highlightIndex variable that is set to one of the indices generated. When highlight index pushes past the highest index in the list, then we call getBoxIndices with the new range... And we highlight the index pointed to by highlightIndex in some way.
+
 - [] Make it so that pressing a button will go to the end of the list of workouts and another will go to the beginning of the list. Maybe a button that goes to the middle? Maybe have a select mode that lets you push a button followed by a number to jump to the selected workout?
+
 - [] Add some colors for background, box lines, box, and font.
+
 - [] Make it so that the distance between boxes and the position of the text within the boxes is relative to the computed width of the box. I'm thinking we can make the box 10% bigger than the widest piece of text. Then we can shift all the text %5 of that value to the right. Then we can make all the box coordiates 1.05 times the width of the box? Right now I just have hard coded values and I'm not sure how long that will hold up.
+j
 - [] Add a date field to the json and display that as well? Maybe I don't care about this.
+
 - [] Add some screen scaling so the image grows with a mouse drag and stuff. I think there's a single love2d function for this but I don't remember.
-- [] Add a state machine in front of this entire thing? The current state that this is existing in is the workoutState. Maybe I can add a select workout state to load a file. We can have a main menu we can open and close with the escape key maybe? Or maybe something clickable? I'll think about that.
 
 Done:
 - [Added] 20251219: Added validation code that checks the workout types before starting. If there is an invalid one present, it prints out which workout and the name of the key and then exits.

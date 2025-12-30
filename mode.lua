@@ -1,8 +1,8 @@
 -- Mapping of the key press ot the mode identifier.
 local modes = {
-    w = "workout", 
-    m = "max",
-    n = "note"
+    ["w"] = "workout", 
+    ["m"] = "max",
+    ["n"] = "note"
 }
 
 -- Will hold the current mode to render to the screen.
@@ -23,7 +23,7 @@ function setModeByKey( key )
 
     -- Only update the current mode if its in the list of valid ones.
     if modes[key] then
-        currentMode = mode
+        currentMode = modes[key]
     end
 
 end

@@ -2,6 +2,7 @@ json = require("json")
 require("workout")
 require("screenshot")
 require("mode")
+require("navigation")
 
 
 function love.conf(t)
@@ -65,23 +66,31 @@ end
 
 function love.draw()
 
+    local mode = getCurrentMode()
     local idx = 0
     local displayName = ""
     local e
-    for k, v in ipairs(indices) do
-        e = workouts.workout[v]
-        displayName = string.format("%s (%d/%d)", e.name,v,numWorkouts)
-        
-        local xPos = x0 + (boxSpacing / 2.0) + (rw0 + boxSpacing) * idx
-        local yPos = y0 + (boxSpacing / 2.0)
 
-        -- Initial hightlight code. Just highlight the frist thing all the time.
-        if idx == 0 then
-            drawWorkoutBox(displayName, e.exercises, xPos, yPos, rw0, rh0, true)
-        else
-            drawWorkoutBox(displayName, e.exercises, xPos, yPos, rw0, rh0, false)
+    if mode == "workout" then
+        for k, v in ipairs(indices) do
+            e = workouts.workout[v]
+            displayName = string.format("%s (%d/%d)", e.name,v,numWorkouts)
+        
+            local xPos = x0 + (boxSpacing / 2.0) + (rw0 + boxSpacing) * idx
+            local yPos = y0 + (boxSpacing / 2.0)
+
+            -- Initial hightlight code. Just highlight the frist thing all the time.
+            if idx == 0 then
+                drawWorkoutBox(displayName, e.exercises, xPos, yPos, rw0, rh0, true)
+            else
+                drawWorkoutBox(displayName, e.exercises, xPos, yPos, rw0, rh0, false)
+            end
+            idx = idx + 1
         end
-        idx = idx + 1
+    elseif mode == "note" then
+        love.graphics.print("NOTE MODE")
+    elseif mode == "max" then
+        love.graphics.print("MAX MODE")
     end
 
 end
@@ -131,4 +140,7 @@ function love.keypressed(key, scancode, isrepeat)
     if key == 'q' then
         love.event.quit()
     end
+
+    -- Change the mode if necessary.
+    setModeByKey(key)
 end
