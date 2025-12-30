@@ -1,6 +1,7 @@
 json = require("json")
 require("workout")
 require("screenshot")
+require("mode")
 
 
 function love.conf(t)
@@ -30,6 +31,8 @@ function love.load(arg)
     if not validateInput(workouts) then
         os.exit(0)
     end
+    setModeByString("notes")
+    print(getCurrentMode())
     numWorkouts, rw0, rh0 = getLongestExerciseString(workouts, love.graphics.getFont())
     drawIndowStartIdx = 1
     highlightIndex = 1
@@ -94,7 +97,8 @@ function love.keypressed(key, scancode, isrepeat)
     --- Workout navigation start ---
 
     -- Keep the index in range.
-    if love.keyboard.isDown('right') then
+    if key == "right"
+    or key == "l" then -- Allow vim like motions
             drawIndowStartIdx = drawIndowStartIdx + 1
             if drawIndowStartIdx > #workouts.workout then
                 drawIndowStartIdx = 1
@@ -102,7 +106,8 @@ function love.keypressed(key, scancode, isrepeat)
     end
 
     -- Keep the index in range.
-    if love.keyboard.isDown('left') then
+    if key == "left"
+    or key == "h" then -- Allow vim like motions
             drawIndowStartIdx = drawIndowStartIdx - 1
             if drawIndowStartIdx <= 0 then
                 drawIndowStartIdx = #workouts.workout
