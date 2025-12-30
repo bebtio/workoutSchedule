@@ -16,9 +16,11 @@ workout =
     numBoxesToDraw = numWorkouts 
 }
 
+-- Initialize the values in the workout table used for drawing the 
+-- workout graphics.
 function workout:init(workouts, font)
 
-    self.numWorkouts, self.rw0, self.rh0 = getLongestExerciseString(workouts, font)
+    self.numWorkouts, self.rw0, self.rh0 = getWorkoutBoxDims(workouts, font)
     self.rw0 = self.rw0 * 1.3
     self.rh0 = (self.rh0 + self.curve )  * 1.1
 
@@ -30,8 +32,44 @@ function workout:init(workouts, font)
     love.window.setMode(self.numBoxesToDraw*(self.boxSpacing+self.rw0), self.rh0 + self.boxSpacing) 
 end
 
-function workout:handleKeyPress(key)
+function workout:update()
+    self.indices = getBoxIndices(self.drawIndowStartIdx, self.numBoxesToDraw, self.numWorkouts)
+end
 
+function workout:handleKeyPresses(key)
+    --- Workout navigation start ---
+
+    -- Keep the index in range.
+    if key == "right"
+    or key == "l" then -- Allow vim like motions
+            self.drawIndowStartIdx = self.drawIndowStartIdx + 1
+            if self.drawIndowStartIdx > self.numWorkouts then
+                self.drawIndowStartIdx = 1
+        end
+    end
+
+    -- Keep the index in range.
+    if key == "left"
+    or key == "h" then -- Allow vim like motions
+            self.drawIndowStartIdx = self.drawIndowStartIdx - 1
+            if self.drawIndowStartIdx <= 0 then
+                self.drawIndowStartIdx = self.numWorkouts
+            end
+    end
+
+    -- Change how many workouts to display.
+    if key >= '1' and key <= tostring(self.maxBoxesToDraw) then
+        if tonumber(key) ~= self.numBoxesToDraw then
+            self.numBoxesToDraw = tonumber(key)
+
+            if self.numWorkouts < self.numBoxesToDraw then
+                self.numBoxesToDraw = self.numWorkouts
+            end
+
+            love.window.setMode(self.numBoxesToDraw*(self.boxSpacing+self.rw0), self.rh0 + self.boxSpacing) 
+        end
+    end
+    --- Workout navigation end ---
 end
 
 function workout:main(workouts)
@@ -159,7 +197,7 @@ end
     These values will be used to draw all workouts uniformally based on the largest of these
     dimensions.
 --]]
-function getLongestExerciseString(workoutData, font)
+function getWorkoutBoxDims(workoutData, font)
     local maxWidth = 0
     local maxHeight = 0
     local fontHeight = font:getHeight()
@@ -212,9 +250,6 @@ end
 
 -- Returns indices of which workouts to draw. Makes sure to 
 -- iterate as a circular buffer.
-function workout:update()
-    self.indices = getBoxIndices(self.drawIndowStartIdx, self.numBoxesToDraw, self.numWorkouts)
-end
 
 function getBoxIndices( drawIndex, numToDraw, numElements)
 
@@ -265,40 +300,4 @@ function workout:validateInput( workoutData )
     -- if there were no invalid keys.
     return returnVal
 
-end
-
-function workout:navigation(key)
-    --- Workout navigation start ---
-
-    -- Keep the index in range.
-    if key == "right"
-    or key == "l" then -- Allow vim like motions
-            self.drawIndowStartIdx = self.drawIndowStartIdx + 1
-            if self.drawIndowStartIdx > self.numWorkouts then
-                self.drawIndowStartIdx = 1
-        end
-    end
-
-    -- Keep the index in range.
-    if key == "left"
-    or key == "h" then -- Allow vim like motions
-            self.drawIndowStartIdx = self.drawIndowStartIdx - 1
-            if self.drawIndowStartIdx <= 0 then
-                self.drawIndowStartIdx = self.numWorkouts
-            end
-    end
-
-    -- Change how many workouts to display.
-    if key >= '1' and key <= tostring(self.maxBoxesToDraw) then
-        if tonumber(key) ~= self.numBoxesToDraw then
-            self.numBoxesToDraw = tonumber(key)
-
-            if self.numWorkouts < self.numBoxesToDraw then
-                self.numBoxesToDraw = self.numWorkouts
-            end
-
-            love.window.setMode(self.numBoxesToDraw*(self.boxSpacing+self.rw0), self.rh0 + self.boxSpacing) 
-        end
-    end
-    --- Workout navigation end ---
 end

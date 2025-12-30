@@ -72,7 +72,7 @@ function love.keypressed(key, scancode, isrepeat)
     end
     --- Screenshot code end ---
 
-    workout:navigation(key)
+    workout:handleKeyPresses(key)
 
     if key == 'q' then
         love.event.quit()
