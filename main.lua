@@ -1,6 +1,7 @@
 json = require("json")
 require("workout")
 require("screenshot")
+require("mode")
 
 
 function love.conf(t)
@@ -26,59 +27,36 @@ function love.load(arg)
         workouts =  json.decode(jsonString)
     end
 
-
     if not validateInput(workouts) then
         os.exit(0)
     end
-    numWorkouts, rw0, rh0 = getLongestExerciseString(workouts, love.graphics.getFont())
-    drawIndowStartIdx = 1
-    highlightIndex = 1
-    maxBoxesToDraw = 4
 
-    -- Set num boxes to draw to maxBoxesToDraw at max.
-    numBoxesToDraw = numWorkouts 
-    if numWorkouts > maxBoxesToDraw then
-        numBoxesToDraw = maxBoxesToDraw
-    end
+    -- Default mode is to show workouts.
+    setModeByString("workout")
+    local font = love.graphics.getFont()
+    workout:init(workouts, font) 
 
-    boxSpacing = 10
-    curve = 30
-    x0 = 0
-    y0 = 0
-    rw0 = rw0 * 1.3
-    rh0 = (rh0 + curve )  * 1.1
 
     -- Love configurations.
-    --love.keyboard.setKeyRepeat(true)
-    love.window.setMode(numBoxesToDraw*(boxSpacing+rw0), rh0 + boxSpacing) 
     love.window.setTitle("Workout Schedule")
 end
 
 function love.update(dt)
 
-    indices = getBoxIndices(drawIndowStartIdx, numBoxesToDraw, numWorkouts, maxBoxesToDraw )
+    workout:update()
 
 end
 
 function love.draw()
 
-    local idx = 0
-    local displayName = ""
-    local e
-    for k, v in ipairs(indices) do
-        e = workouts.workout[v]
-        displayName = string.format("%s (%d/%d)", e.name,v,numWorkouts)
-        
-        local xPos = x0 + (boxSpacing / 2.0) + (rw0 + boxSpacing) * idx
-        local yPos = y0 + (boxSpacing / 2.0)
+    local mode = getCurrentMode()
 
-        -- Initial hightlight code. Just highlight the frist thing all the time.
-        if idx == 0 then
-            drawWorkoutBox(displayName, e.exercises, xPos, yPos, rw0, rh0, true)
-        else
-            drawWorkoutBox(displayName, e.exercises, xPos, yPos, rw0, rh0, false)
-        end
-        idx = idx + 1
+    if mode == "workout" then
+        workout:main(workouts)
+    elseif mode == "note" then
+        love.graphics.print("NOTE MODE")
+    elseif mode == "max" then
+        love.graphics.print("MAX MODE")
     end
 
 end
@@ -91,39 +69,13 @@ function love.keypressed(key, scancode, isrepeat)
     end
     --- Screenshot code end ---
 
-    --- Workout navigation start ---
-
-    -- Keep the index in range.
-    if love.keyboard.isDown('right') then
-            drawIndowStartIdx = drawIndowStartIdx + 1
-            if drawIndowStartIdx > #workouts.workout then
-                drawIndowStartIdx = 1
-        end
-    end
-
-    -- Keep the index in range.
-    if love.keyboard.isDown('left') then
-            drawIndowStartIdx = drawIndowStartIdx - 1
-            if drawIndowStartIdx <= 0 then
-                drawIndowStartIdx = #workouts.workout
-            end
-    end
-
-    -- Change how many workouts to display.
-    if key >= '1' and key <= tostring(maxBoxesToDraw) then
-        if tonumber(key) ~= numBoxesToDraw then
-            numBoxesToDraw = tonumber(key)
-
-            if numWorkouts < numBoxesToDraw then
-                numBoxesToDraw = numWorkouts
-            end
-
-            love.window.setMode(numBoxesToDraw*(boxSpacing+rw0), rh0 + boxSpacing) 
-        end
-    end
-    --- Workout navigation end ---
 
     if key == 'q' then
         love.event.quit()
     end
+
+    workout:handleKeyPresses(key)
+
+    -- Change the mode if necessary.
+    setModeByKey(key)
 end
