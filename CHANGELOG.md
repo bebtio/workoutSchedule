@@ -7,6 +7,8 @@ TODO:
     - [] m can be max lifts.
     - [] I will want to separate each of these into their own files with their own rules on how to display each. I already have a workout.lua file handling all the workout graphics so thats good.
 
+- [] Add a tiled scrolling background of gym equipment. Maybe some dumbells and barbells and plates? Example (here)[https://www.reddit.com/r/love2d/comments/iqr9o9/infinitely_scrolling_background/] by ashleyjamesy.
+
 - []  Add a state machine in front of this entire thing? The current state that this is existing in is the workoutState. Maybe I can add a select workout state to load a file. We can have a main menu we can open and close with the escape key maybe? Or maybe something clickable? I'll think about that.
 
 - [] Highlight the current workout "selected". I want to make it so that pressing left and right doesn't automatically scroll the entire list of workouts. Instead I want to have the highlighted workout move until it hits the edge and then we scroll. This may be accomplished by changing the condition on which getBoxIndices is called. I could keep a highlightIndex variable that is set to one of the indices generated. When highlight index pushes past the highest index in the list, then we call getBoxIndices with the new range... And we highlight the index pointed to by highlightIndex in some way.
