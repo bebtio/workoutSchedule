@@ -2,6 +2,8 @@ json = require("json")
 require("workout")
 require("screenshot")
 require("mode")
+require("color_scheme")
+require("util")
 
 
 function love.conf(t)
@@ -10,11 +12,20 @@ end
 
 function love.load(arg)
 
-    if #arg == 0 then
+    if #arg ~= 1 then
         workoutFile = "workout_example.json"
     else
         workoutFile = arg[1]
     end
+
+    if #arg ~= 2 then
+        colorFile = "default_color.json"
+    else
+        colorFile = arg[2]
+    end
+
+    colors:load(colorFile)
+    love.graphics.setBackgroundColor(colors.background.color)
 
     print("Loading workout: " .. workoutFile)
     file = io.open(workoutFile, "rb")

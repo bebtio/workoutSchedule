@@ -1,3 +1,4 @@
+require("color_scheme")
 workout = 
 {
     indices = {},
@@ -98,24 +99,39 @@ end
 
 -- Draws a single workout.
 function drawWorkoutBox(displayName, exercises, boxSpacing, x, y, width, height, curve, highlight )
-    local rw1 = width  - 2
-    local rh1 = height - 2
-    local offsetw = (width - rw1)/2.0
-    local offseth = (height - rh1)/2.0
     local font = love.graphics.getFont()
     local gw = font:getWidth(displayName)
     local gh = font:getHeight(displayName)
 
-    if highlight then
-        -- Eventually want to make this a configuration. Hard code to a pretty blue for now.
-        love.graphics.setColor(0,.5,1)
-    end
+    -- Load the colors
+    local borderColor    = colors.workout_mode.box_border
+    local boxColor       = colors.workout_mode.box_background
+    local highlightColor = colors.workout_mode.box_highlight
+    local textColor      = colors.workout_mode.box_text
+
+    -- Draw the box itself
+    love.graphics.setColor(boxColor)
     love.graphics.rectangle("fill",x,y, width, height, curve, curve)
-    love.graphics.setColor(0,0,0)
-    love.graphics.rectangle("fill",x+offsetw,y+offseth,rw1,rh1, curve, curve)
-    love.graphics.setColor(1,1,1)
+
+    if highlight then
+        love.graphics.setColor(highlightColor)
+    else
+        love.graphics.setColor(borderColor)
+    end
+
+    -- Draw the box outline
+    for i = 1,1 do
+        love.graphics.rectangle("line",x+i,y+i, width-i*2, height-i*2, curve, curve)
+    end
+
+    -- Draw the header separator line.
+    love.graphics.setColor(textColor)
     love.graphics.rectangle("fill",x,y+curve, width, 1)
+
+    -- Draw the text
     love.graphics.print(displayName, x + (width / 2.0) - (gw / 2.0) , y + (curve / 2.0) - (gh/2.0))
+
+    -- Draw the exercises, they will inherit the textColor.
     drawExercises(exercises, x + boxSpacing, y + curve, width)
 end
 
