@@ -12,17 +12,18 @@ end
 
 function love.load(arg)
 
-    if #arg ~= 1 then
+    if not (#arg >= 1) then
         workoutFile = "workout_example.json"
     else
         workoutFile = arg[1]
     end
 
-    if #arg ~= 2 then
+    if not (#arg >= 2) then
         colorFile = "default_color.json"
     else
         colorFile = arg[2]
     end
+
 
     colors:load(colorFile)
     love.graphics.setBackgroundColor(colors.background.color)
