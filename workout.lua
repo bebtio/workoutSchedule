@@ -132,7 +132,7 @@ function drawWorkoutBox(displayName, exercises, boxSpacing, x, y, width, height,
     love.graphics.print(displayName, x + (width / 2.0) - (gw / 2.0) , y + (curve / 2.0) - (gh/2.0))
 
     -- Draw the exercises, they will inherit the textColor.
-    drawExercises(exercises, x + boxSpacing, y + curve, width)
+    drawExercises(exercises, x + boxSpacing, y + curve + gh / 2.0, width)
 end
 
 -- Draws the given exercise type inside the workout box.
